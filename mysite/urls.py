@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'', include('blog.urls')),
     # everything that comes into 'http://127.0.0.1:8000/' will be redirected to blog.urls 
     # and looked for further instructions there
+
 ]

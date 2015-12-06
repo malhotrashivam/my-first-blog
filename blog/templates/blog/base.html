@@ -11,11 +11,23 @@
         <!--- The first 2 lines  are bootstrap code lines for good looks 
             After that we mention where to find our bootstrap code
             The last line includes a font Lobster
-            The browser reads the files in the order they're given, so we need to be make sure this is in the right place. Otherwise the code in our file may override code in Bootstrap files.
+            The browser reads the files in the order they're given, so we need to 
+            be make sure this is in the right place. Otherwise the code in our file 
+            may override code in Bootstrap files.
         -->
     </head>
     <body>
         <div class="page-header">
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            {% endif %}
+
+            <!-- <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a> -->
+            
+            <!-- we want to call our new view post_new. The class "glyphicon glyphicon-plus" is provided by the 
+            bootstrap theme we are using, and will display a plus sign for us -->
+            
             <h1><a href="/">Django Girls Blog</a></h1>
         </div>
 
@@ -25,8 +37,8 @@
                 {% block content %}
                 {% endblock %}
 
-<!-- We used the template tag block to make an area that will have HTML inserted in it. That HTML will come from 
-    another templates that extends this template (base.html) -->
+            <!-- We used the template tag block to make an area that will have HTML inserted in it. That HTML will 
+            come from another templates that extends this template (base.html) -->
 
                 </div>
             </div>
