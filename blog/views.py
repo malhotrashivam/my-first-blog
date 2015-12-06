@@ -4,6 +4,8 @@
 from django.shortcuts import render
 from django.utils import timezone	# Sorting by published dates, so we need timezone
 from .models import Post 	# Import the post model , . because in the same directory
+from django.shortcuts import render, get_object_or_404
+
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -18,3 +20,8 @@ def post_list(request):
     # the template. In a view we decide what (model) will be displayed in a template.
     # {} is a place in which we can add some things for the template to use, so we have given the 
     # list of posts a name
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post': post})
+	# Basically we are catching the pk ie. post number or id as input and rendering itt to print

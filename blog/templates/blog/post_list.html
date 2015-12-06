@@ -1,28 +1,33 @@
-<html>
-    <head>
-        <title>Django Girls blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="">Django Girls Blog</a></h1>
-        </div>
+{% extends 'blog/base.html' %}
 
-    <!-- To print a variable in Django templates, we use double curly 
-    brackets with the variable's name inside, like this:-->
+{% block content %}
+    {% for post in posts %}
 
-        {% for post in posts %}
-            <div>
-                <p>published: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaks }}</p>   
-                <!-- |linebreaks is piping the posts' text through a filter to convert line-breaks into paragraphs -->
+        <!-- To print a variable in Django templates, we use double curly 
+            brackets with the variable's name inside, like {{post}}
+            Now we are going to put python inside our html page 
+            We have divided our code into class structure so that we can apply css to it
+            |linebreaks is piping the posts' text through a filter to convert line-breaks into paragraphs 
+            Also we are inside the block content so that we can extend the base file by adding our code into it
+        -->
+
+
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
             </div>
-        {% endfor %}
-    
-        <div>
-            <p>published: 14.06.2014, 12:14</p>
-            <h2><a href="">My second post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <!-- blog.views.post_detail is a path to a posts_detail view which we want to link to this title -->
+            <!-- blog is the name of our application (the directory blog), views is from the name of the views.py file and the last bit - post_detail - is the name of the view -->
+
+
+            <!-- That means if you enter http://127.0.0.1:8000/post/5/ into your browser, Django will understand that you are looking for a view called post_detail and transfer the information that pk equals 5 to that view -->
+            
+            <p>{{ post.text|linebreaks }}</p>
         </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
+
+
+
+
